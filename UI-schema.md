@@ -1,8 +1,8 @@
 # Introduction
-You can use the UI schema in Cloud Pak Watson AIOps to dynamically generate UI forms for your connector. We offer various different fields, data types, and validation mechanisms that enable your connector to be accessible from the Cloud Pak Watson AIOps UI. This UI schema is defined for all connectors under the `uiSchema` in the ConnectorSchema custom object. The best reference for the UI schema is by looking at existing ConnectorSchema objects and reviewing their `uiSchema` configuration. Note, that this document is the official documentation for this schema, which is a proprietary IBM schema with a custom form generator that is created for IBM Carbon.
+You can use the UI schema in Cloud Pak for Watson AIOps to dynamically generate UI forms for your connector. We offer various different fields, data types, and validation mechanisms that enable your connector to be accessible from the Cloud Pak for Watson AIOps UI. This UI schema is defined for all connectors under the `uiSchema` in the ConnectorSchema custom object. The best reference for the UI schema is by looking at existing ConnectorSchema objects and reviewing their `uiSchema` configuration. Note, that this document is the official documentation for this schema, which is a proprietary IBM schema with a custom form generator that is created for IBM Carbon.
 
 ## Design
-The Cloud Pak Watson AIOps team **does not** create or maintain custom field designs. All designs are standardized across IBM through the [Carbon Design System Components](https://www.carbondesignsystem.com/components/overview/). It is considered good practice that generally few tweaks are made to the styling or functions of the Carbon components.
+The Cloud Pak for Watson AIOps team **does not** create or maintain custom field designs. All designs are standardized across IBM through the [Carbon Design System Components](https://www.carbondesignsystem.com/components/overview/). It is considered good practice that generally few tweaks are made to the styling or functions of the Carbon components.
 
 ## Form Structure
 
@@ -71,11 +71,11 @@ The attributes that follow are at the top level of the uiSchema object and are r
 
 ### Side panel form attributes
 
-The side panel is an important part of the user experience in the data and tools connections page. This side panel is meant to explain to the user what is required for them to configure their connection so they can pull their data into Cloud Pak Watson AIOps. The following parameters are required unless otherwise stated and are at the top level of the form like the attributes above.
+The side panel is an important part of the user experience in the data and tools connections page. This side panel is meant to explain to the user what is required for them to configure their connection so they can pull their data into Cloud Pak for Watson AIOps. The following parameters are required unless otherwise stated and are at the top level of the form like the attributes above.
 
 **sidePanelTitle** is the title at the top of the side panel. This is usually in the format "Configuring a <your name> connection".
 
-**sidePanelDescription** is the description at the top of the side panel. This might explain what kind of data you are bringing in to Cloud Pak Watson AIOps and how it is being used.
+**sidePanelDescription** is the description at the top of the side panel. This might explain what kind of data you are bringing in to Cloud Pak for Watson AIOps and how it is being used.
 
 **sidePanelInfoHeader** is used as the header for the sidePanelInfo. Almost all informational headers say "You need to provide the following information:".
 
