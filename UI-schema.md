@@ -1,8 +1,8 @@
 # Introduction
-The UI schema in Watson AIOps allows you to dynamically generate UI forms for your connector. We offer a variety of different fields, data types, and validation mechanisms that will enable for your connector to be accessible from the Watson AIOps UI. This UI schema is defined for all connectors under the `uiSchema` in the ConnectorSchema custom object. The best reference for the UI schema is by looking at already existing ConnectorSchema objects and reviewing their `uiSchema` configuration. Note, that this document is the official documentation for this schema, which is a proprietary IBM schema with a custom form generator created for IBM Carbon.
+You can use the UI schema in Cloud Pak Watson AIOps to dynamically generate UI forms for your connector. We offer various different fields, data types, and validation mechanisms that enable your connector to be accessible from the Cloud Pak Watson AIOps UI. This UI schema is defined for all connectors under the `uiSchema` in the ConnectorSchema custom object. The best reference for the UI schema is by looking at existing ConnectorSchema objects and reviewing their `uiSchema` configuration. Note, that this document is the official documentation for this schema, which is a proprietary IBM schema with a custom form generator that is created for IBM Carbon.
 
 ## Design
-To begin, please note that the Watson AIOps team **does not** create or maintain custom field designs. All designs are standardized across IBM through the [Carbon Design System Components](https://www.carbondesignsystem.com/components/overview/). It is considered good practice that generally very few tweaks are made to the styling or functionality of the Carbon components.
+The Cloud Pak Watson AIOps team **does not** create or maintain custom field designs. All designs are standardized across IBM through the [Carbon Design System Components](https://www.carbondesignsystem.com/components/overview/). It is considered good practice that generally few tweaks are made to the styling or functions of the Carbon components.
 
 ## Form Structure
 
@@ -51,9 +51,9 @@ formSteps:
 
 ### Required top-level form attributes (excluding the side panel configuration)
 
-The attributes below are at the top level of the uiSchema object and are required. The UI form may show a blank page for your connector if any of these properties are not provided or are configured incorrectly. Please closely follow the guidance below.
+The attributes that follow are at the top level of the uiSchema object and are required. The UI form might show a blank page for your connector if any of these properties are not provided or are configured incorrectly. Closely follow the guidance.
 
-**type** is the unique key used to identify the form. This is used for all routing from the UI to the connector. Use only lowercase letters or dashes "-" for defining the type.
+**type** is the unique key that is used to identify the form. Used for all routing from the UI to the connector. Use only lowercase letters or dashes "-" for defining the type.
 
 **displayName** is the name that shows up at the top of the form and on the connector tile.
 
@@ -61,55 +61,55 @@ The attributes below are at the top level of the uiSchema object and are require
 
 **url** is the link to the documentation for each connector and is used for "Learn more" and documentation links in the UI.
 
-**apiAdaptor** is a property used to define which APIs should be called by the UI. The value should always be set to `connection` for custom connectors. The other API adaptors are for IBM internal APIs used for observers and runbooks.
+**apiAdaptor** is a property that is used to define which APIs can be called by the UI. The value is always be set to `connection` for custom connectors. The other API adapters are for IBM internal APIs used for observers and runbooks.
 
-**datasourceType** is the type of the data source we are interested in. Note, that the data sources that are currently supported by the connectors are "runbooks", "metrics", "logs", "events", "topology", "alerts", and "tickets". Most connections can use the "logs" type. Note, that we also have specific data types for "slack" and "teams" to meet the needs of these specific ChatOps connectors and their data, but they should not be used.
+**datasourceType** is the type of the data source that we are interested in. Note, that the data sources that are currently supported by the connectors are "runbooks", "metrics", "logs", "events", "topology", "alerts", and "tickets". Most connections can use the "logs" type. Note, that we also have specific data types for "slack" and "teams" to meet the needs of these specific ChatOps connectors and their data, but they should not be used.
 
-**formSteps** are used to define the pages in the form. Note that you must have at least one form step. Each form step must be defined based on the example above and must have a unique "id" property and any string for the "name" property. The "id" is used to define the form in the schema and the "name" is shown within the UI form itself. Note that the isOptional parameter cannot be applied to the first form step, but can be used on any other steps if all fields on that page are optional. The isOptional parameter is meant to improve the user experience and does not actually affect the form itself besides saying that page is optional.
+**formSteps** are used to define the pages in the form. **Note:** You must have at least one form step. Each form step must be defined based on the example above and must have a unique "id" property and any string for the "name" property. The "id" is used to define the form in the schema and the "name" is shown within the UI form itself. **Note:** The isOptional parameter cannot be applied to the first form step, but can be used on any other steps if all fields on that page are optional. The isOptional parameter is meant to improve the user experience and does not affect the form itself besides saying that page is optional.
 
-**form** is where you will put all the code for the fields (more on this in the "Field Components" section below).
+**form** is where you put all the code for the fields (more on this in the "Field Components" section below).
 
 ### Side panel form attributes
 
-The side panel is an important part of the user experience in the data and tools connections page. This side panel is meant to show explain to the user what is required for them to configure their connection so they can pull their data in to Watson AIOps. Please note the parameters below are required unless otherwise stated and will be at the top level of the form like the attributes above.
+The side panel is an important part of the user experience in the data and tools connections page. This side panel is meant to explain to the user what is required for them to configure their connection so they can pull their data into Cloud Pak Watson AIOps. The following parameters are required unless otherwise stated and are at the top level of the form like the attributes above.
 
 **sidePanelTitle** is the title at the top of the side panel. This is usually in the format "Configuring a <your name> connection".
 
-**sidePanelDescription** is the description at the top of the side panel. This should explain what kind of data you are bringing in to Watson AIOps and how it is being used.
+**sidePanelDescription** is the description at the top of the side panel. This might explain what kind of data you are bringing in to Cloud Pak Watson AIOps and how it is being used.
 
-**sidePanelInfoHeader** is used as the header for the sidePanelInfo. Almost all informational headers say "You'll need to provide the following information:".
+**sidePanelInfoHeader** is used as the header for the sidePanelInfo. Almost all informational headers say "You need to provide the following information:".
 
-**sidePanelInfo** is a YAML/JSON list where you state what fields are required to configure your connection in the UI. Note, that only required fields should be listed here and that optional fields are detailed elsewhere in the side panel.
+**sidePanelInfo** is a YAML/JSON list where you state what fields are required to configure your connection in the UI. Only required fields can be listed here and optional fields are detailed elsewhere in the side panel.
 
-**hasOptionalConfig** is a boolean value that can be defined as true or false. If this is set to true, you must also define the sidePanelOptionalConfigHeader and sidePanelOptionalConfigList properties. This property is used to enable or disable in the side panel where you want to state what optional parameters are required to configure your connection in the form.
+**hasOptionalConfig** is a Boolean value that can be defined as true or false. If this is set to true, you must also define the sidePanelOptionalConfigHeader and sidePanelOptionalConfigList properties. This property is used to enable or disable in the side panel where you want to state what optional parameters are required to configure your connection in the form.
 
 
 **sidePanelOptionalConfigHeader** is optional, unless hasOptionalConfig is set to true. The header is used as a header for providing optional configuration in the form. Almost all optional configuration headers say "You can also optionally configure settings for performance by providing:".
 
-**sidePanelOptionalConfigList** is a YAML/JSON list where you state what fields are optional to configure your connection in the UI. Note that this is optional, unless hasOptionalConfig is set as true. Only optional fields should be listed here.
+**sidePanelOptionalConfigList** is a YAML/JSON list where you state what fields are optional to configure your connection in the UI. This is optional, unless hasOptionalConfig is set as true. Only optional fields can be listed here.
 
-**hasOptionalText** is a boolean value that can be defined as true or false. If this is set to true, you must also define sidePanelOptionalText.
+**hasOptionalText** is a Boolean value that can be defined as true or false. If set to true, you must also define sidePanelOptionalText.
 
-**sidePanelOptionalText** is optional unless hasOptionalText is set to true. This text should be used for any information that you would like to share with the user about your connection or form that is not avaliable in other places in the UI.
+**sidePanelOptionalText** is optional unless hasOptionalText is set to true. This text can be used for any information that you would like to share with the user about your connection or form that is not available in other places in the UI.
 
-**hasAIModelType** is a boolean value that can be defined as true or false. If this is set to true, you must also define AIModelTypeList. Setting this to true means that your connection will be used to train AI models.
+**hasAIModelType** is a Boolean value that can be defined as true or false. If this is set to true, you must also define AIModelTypeList. Setting this to true means that your connection is used to train AI models.
 
 **AIModelTypeList** is optional unless hasAIModelType is set to true. This is a YAML/JSON list where you can state what AI model types can be used for your connector.
 
 
 ## Field Components
 
-The data and tools connections page offers many different fields that can be configured under the "form" property. Please read below about the common properties shared between each field schema and note examples of each component below.
+The data and tools connections page offers many different fields that can be configured under the "form" property. Read the following information about the common properties that are shared between each field schema and note examples of each component below.
 
 **id** is required for every component and must be alphanumeric and unique to each component. The value of id is a string.
 
-**element** is required for every component and is a string. For all fields below, the value for "element" will be "input".
+**element** is required for every component and is a string. For all fields below, the value for "element" is "input".
 
 **type** is required for every component and is a string. This is used to determine which component you want to use.
 
-**isRequired** is configurable for every field, but is optional. The value of this is a boolean and can be true or false. If the value is set to true, the user will not be able to proceed to submitting the form or going to the next form page unless that field is filled out. An error will also be displayed if the field is left empty.
+**isRequired** is configurable for every field, but is optional. The value of this is a Boolean and can be true or false. If the value is set to true, the user will not be able to proceed to submitting the form, or go to the next form page unless that field is filled out. An error is displayed if the field is left empty.
 
-**apiMapping** is a string and defines the path to the data which is sent to the API. For example, if you define the apiMapping as "connector_config.primary.username" we will create a parent object connector_config with a child object primary. Inside primary, there will be a key of username with a value of the field that was inputted. This will be sent to the API and routed to the connector so the data from the UI can be parsed.
+**apiMapping** is a string and defines the path to the data that is sent to the API. For example, if you define the apiMapping as "connector_config.primary.username" we create a parent object connector_config with a child object primary. Inside primary, is a key of username with a value of the field that was inputted. This is sent to the API and routed to the connector so the data from the UI can be parsed.
 
 ### Text
 <img src="https://media.github.ibm.com/user/164457/files/a994bd80-8d8b-11eb-9b5d-70345d5652eb" width="720">
@@ -162,7 +162,7 @@ The data and tools connections page offers many different fields that can be con
   apiMapping: connection_config.type
 ```
 
-Additionally, you can optionally configure the "isRange" property. The value for this can be a boolean and set to true or false. If this is configured, "items" can be passed a range of numbers. For example, if you set "items" as "1:50" the dropdown will display all values from 1 to 50 inclusive.
+Additionally, you can optionally configure the "isRange" property. The value for this can be a Boolean and set to true or false. If this is configured, "items" can be passed a range of numbers. For example, if you set "items" as "1:50" the dropdown displays all values in the range 1-50.
 
 ### JSON
 <img src="https://media.github.ibm.com/user/164457/files/05f7dd00-8d8c-11eb-9f10-727a5f8f7602" width="720">

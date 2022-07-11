@@ -1,6 +1,6 @@
-# Connector Airgap Deployment Process
+# Connector Air gap Deployment Process
 
-You may wish to deploy your custom connector in an air-gapped environment (one which is isolated from the public internet). In this case your environment may be unable to communicate with any external service such as Github. You may need to then host a git repository service containing your deployment manifests within the cluster and configure the registry mirror and copy your images to this internal registry.
+You might want to deploy your custom connector in an air-gapped environment (one that is isolated from the public internet). In this case, your environment might be unable to communicate with any external service such as GitHub. You might need to then host a Git repository service that contains your deployment manifests within the cluster and configure the registry mirror and copy your images to this internal registry.
 
 ## Prerequisites
 - A production grade Docker V2 compatible registry, such as Quay Enterprise, JFrog Artifactory, or Docker Registry
@@ -10,7 +10,7 @@ You may wish to deploy your custom connector in an air-gapped environment (one w
 - Access to the Red Hat OpenShift Container Platform cluster as a user with the `cluster-admin` role.
 
 ## Configure the registry mirror
-Create a new `ImageContentSourcePolicy` on your Red Hat OpenShift cluster to enable the redirection of requests to pull images from a repository on a mirrored image registry.
+Create a `ImageContentSourcePolicy` on your Red Hat OpenShift cluster to enable the redirection of requests to pull images from a repository on a mirrored image registry.
 
 Replace `<subdir>` with the proper name and `<example.io/subdir>` with your internal image registry repository, then run the command on the inf node of your Red Hat OpenShift cluster:
 
@@ -31,18 +31,18 @@ repositoryDigestMirrors:
 EOF
 ```
 
-Note: Do not prefix mirrors with http:// or https:// and ensure that they do not have trailing / characters and make sure there is no whitespace after EOF
+**Note:** Do not prefix mirrors with http:// or https:// and ensure that they do not have trailing / characters and make sure that no white space is present after EOF.
 
-The mirror will be rolled out to all nodes on the cluster, cycled one at a time, temporarily making them unschedulable before rebooting.
+The mirror is rolled out to all nodes on the cluster, which is cycled one at a time, temporarily making them unschedulable before rebooting.
 
 Enter the following command to observe the nodes:
 
 ```
 watch oc get nodes
 ```
-Note: Red Hat OpenShift Container Platform 4.7 and later do not reboot the nodes.
+Note: Red Hat OpenShift Container Platform 4.7 and later do not restart the nodes.
 
-Once all nodes have rebooted, verify the ImageContentSourcePolicy was applied with `oc debug` to query the mirrors on the host nodes.
+After all nodes reboot, verify the ImageContentSourcePolicy was applied with `oc debug` to query the mirrors on the host nodes.
 
 ```
 $  oc debug node/worker0.subdomain
@@ -72,9 +72,9 @@ mirror-by-digest-only = true
     location = "example.io/subdir"
 ```
 
-Note: Further RedHat Documentation [here](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.6/html/updating_clusters/updating-restricted-network-cluster)
+Note: Further Red Hat Documentation [here](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.6/html/updating_clusters/updating-restricted-network-cluster)
 
-## Create the gitserver
+## Create the git server
 Follow the instructions for [creating the Git Server](/bundle-manifest.md#use-in-air-gapped-clusters)
 
 ## Copying images from source to target internal image registry
@@ -91,7 +91,7 @@ skopeo login cp.icr.io
 skopeo login example.io
 ```
 
-3. Use `skopeo copy` to copy your custom connector image and gitserver image from the IBM Entitled Container Registry to your internal production grade image registry. Replace the <variables> in the command below where the first image points to the source image registry and the second points to the internal image registry.
+3. Use `skopeo copy` to copy your custom connector image and git server image from the IBM Entitled Container Registry to your internal production grade image registry. Replace the <variables> in the command below where the first image points to the source image registry and the second points to the internal image registry.
 
 
 ```
@@ -99,15 +99,15 @@ skopeo copy --all docker://cp.icr.io/cp/<subdir>/<image>@sha256:<digest> docker:
 ```
 
 ## Verify pulling images from the mirrored registry
-Enter the following commands from the inf node of your OpenShift cluster:
+Enter these commands from the inf node of your Red Hat OpenShift cluster:
 
 1. Pick a worker node from `oc get nodes` and enter the following:
 ```
 oc debug node/<worker node>
 ```
-A command prompt must be presented.
+A command line must be presented.
 
-2. Switch to host binaries by entering the chroot /host command.
+2. Switch to host binaries by entering the ```chroot /host``` command.
 
 ```
 $ oc debug node/worker0.example.com
@@ -136,7 +136,7 @@ Copying blob ...
 Writing manifest to image destination
 Storing signatures
 ```
- 
+
 5. Verify that the image is pulled.
 
 ```
@@ -166,7 +166,7 @@ echo -n "<username>:<password>" | base64 -w0
   "password":"<example.io generated entitlement key>"
 }
 ```
-3. Enter the following command to include the auth.json in your .dockerconfigjson.
+3. Enter the following command to include the auth.json in your dockerconfigjson.
 
 ```
 oc get secret/pull-secret -n openshift-config -ojson | \
